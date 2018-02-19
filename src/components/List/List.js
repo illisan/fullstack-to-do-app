@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import IndvTasks from "../Tasks/IndvTasks";
+import './List.css';
 
 
 
@@ -10,7 +11,7 @@ class List extends Component {
             tasks: [] //adding an empty array as state object, this is what the setState needs to update
         };
     }
-    
+
     toggleTask = (taskIndex) => {
         console.log("old task array:");
         console.log(this.state.tasks);
@@ -39,7 +40,7 @@ class List extends Component {
         if (this.userInput.value.trim() !== "") { // conditional to check whether input field has string; use trim to remove whitespace at beginning and end of input.
             const newTask = {
                 title: this.userInput.value,
-                key: Date.now (),
+                key: Date.now(),
                 done: false
             };
 
@@ -56,7 +57,7 @@ class List extends Component {
 
     clearDone = (event) => {
         console.log('clear function being called')
-       
+
         let newTaskArr = this.state.tasks.filter((task) => {
             if (!task.done) {
                 return task;
@@ -73,19 +74,38 @@ class List extends Component {
     }
 
     render() {
+        // const falseStyle = {
+        //     textDecorationLine: "line-through",
+        //     textDecorationColor: "red",
+        //     color: "grey",
+        //     fontStyle: "italic",
+        // }
+
+        // const trueStyle = {
+        //     color: "blue",
+        // }
+
+        // let taskDone = this.props.toggleHandler ? falseStyle : trueStyle
+
+
+
         return (
             <div className="mainList">
                 <div className="header">
+                    <h3>"The most effective way to do it, is to do it."<br />
+                    <p className="spanText">-Amelia Earhart</p> </h3>
                     <form onSubmit={this.addTask}>
-                        <input ref={(a) => this.userInput = a} placeholder="enter task" />
-                        <button type="submit"> Add Task </button> <br />
-                       
+                        <input className="textBox" ref={(a) => this.userInput = a} placeholder="enter task" />
+                        <div className="buttons">
+                        <button className=" btn addBtn" type="submit"> Add Task </button>
+                        <button className="btn clearBtn" onClick={this.clearDone} >Clear Task</button>
+                        </div>
                     </form>
-                    <button onClick={ this.clearDone} >Clear Task</button>
+                    
                 </div>
-                <IndvTasks 
-                tasks={this.state.tasks} 
-                toggleHandler={this.toggleTask}/>
+                <IndvTasks
+                    tasks={this.state.tasks}
+                    toggleHandler={this.toggleTask}/>
             </div>
         );
     }

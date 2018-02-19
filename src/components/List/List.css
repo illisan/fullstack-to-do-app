@@ -1,0 +1,57 @@
+h3 {
+    font-size: 2rem;
+    font-weight: 200;
+    line-height: 10px;
+    font-family: sans-serif;
+    font-weight: 100;
+}
+
+.spanText {
+    font-size: 1rem;
+    font-style: italic;
+}
+
+.buttons {
+    display: flex;
+}
+
+.btn {
+    width:100px;
+    height:40px;
+    border-style: none;
+    border-radius: 25em;
+    font-size: 1rem;
+    margin-right: 10px;
+    background-color: white;
+}
+
+.addBtn {
+    border: 2px solid palegoldenrod;
+}
+
+.addBtn:hover {
+    background-color: palegoldenrod;
+}
+
+.clearBtn {
+    border: 2px solid skyblue;
+}
+
+.clearBtn:hover {
+    background-color: skyblue;
+}
+
+
+
+.textBox {
+    width:300px;
+    height:35px;
+    border-style: none;
+    margin-bottom: 1rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+}
