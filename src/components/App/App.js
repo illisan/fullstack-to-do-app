@@ -8,6 +8,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Your To-Do List</h1>
+        {/* passing List component */}
         <List />
       </div>
     );
