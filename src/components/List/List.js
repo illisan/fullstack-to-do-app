@@ -58,7 +58,7 @@ class List extends Component {
     clearDone = (event) => {
         console.log('clear function being called')
 
-        let newTaskArr = this.state.tasks.filter((task) => {
+        let newTaskArr = this.state.tasks.filter((task) => { //creating a new array with filtered tasks, where all tasks marked true will be filtered into.
             if (!task.done) {
                 return task;
             }
@@ -74,20 +74,6 @@ class List extends Component {
     }
 
     render() {
-        // const falseStyle = {
-        //     textDecorationLine: "line-through",
-        //     textDecorationColor: "red",
-        //     color: "grey",
-        //     fontStyle: "italic",
-        // }
-
-        // const trueStyle = {
-        //     color: "blue",
-        // }
-
-        // let taskDone = this.props.toggleHandler ? falseStyle : trueStyle
-
-
 
         return (
             <div className="mainList">
