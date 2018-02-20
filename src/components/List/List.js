@@ -59,9 +59,7 @@ class List extends Component {
         console.log('clear function being called')
 
         let newTaskArr = this.state.tasks.filter((task) => { //creating a new array with filtered tasks, where all tasks marked true will be filtered into.
-            if (!task.done) {
-                return task;
-            }
+            return !task.done
         });
 
         this.setState({
@@ -73,25 +71,36 @@ class List extends Component {
         console.log('running prevent default function')
     }
 
+
     render() {
+        let doneCount = this.state.tasks.filter((todo) => {
+            return todo.done
+        })
+
+        console.log('Working!')
+        console.log(doneCount)
+
 
         return (
             <div className="mainList">
                 <div className="header">
                     <h3>"The most effective way to do it, is to do it."<br />
-                    <p className="spanText">-Amelia Earhart</p> </h3>
+                        <p className="spanText">-Amelia Earhart</p> </h3>
                     <form onSubmit={this.addTask}>
                         <input className="textBox" ref={(a) => this.userInput = a} placeholder="enter task" />
                         <div className="buttons">
-                        <button className=" btn addBtn" type="submit"> Add Task </button>
-                        <button className="btn clearBtn" onClick={this.clearDone} >Clear Task</button>
+                            <button className=" btn addBtn" type="submit"> Add Task </button>
+                            {(doneCount.length > 0) && (
+                                <button className="btn clearBtn" onClick={this.clearDone} >Clear Task</button>
+                            )
+                            }
                         </div>
                     </form>
-                    
+
                 </div>
                 <IndvTasks
                     tasks={this.state.tasks}
-                    toggleHandler={this.toggleTask}/>
+                    toggleHandler={this.toggleTask} />
             </div>
         );
     }
