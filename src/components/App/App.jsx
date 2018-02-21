@@ -12,10 +12,10 @@ class App extends Component {
   }
 
   addTask = (event) => {
-  event.preventDefault()
-  console.log(event.target.todoInput.value)
+    event.preventDefault()
+    console.log(event.target.todoInput.value)
     let addedTask = event.target.todoInput
-  let newTaskArr = [...this.state.tasks]; // using array spread syntax to make copy of tasks array where all added tasks will be added
+    let newTaskArr = [...this.state.tasks]; // using array spread syntax to make copy of tasks array where all added tasks will be added
 
     if (addedTask.value.trim() !== "") { // conditional to check whether input field has string; use trim to remove whitespace at beginning and end of input.
       const newTask = {
@@ -34,7 +34,7 @@ class App extends Component {
       console.log(`added ${newTask.title} to list`);
     }
   }
-  
+
   toggleTask = (taskIndex) => {
     console.log("old task array:");
     console.log(this.state.tasks);
@@ -60,7 +60,7 @@ class App extends Component {
   clearDone = (event) => {
     console.log('clear function being called')
 
-    let newTaskArr = this.state.tasks.filter((task) => { //creating a new array with filtered tasks, where all tasks marked true will be filtered into.
+    let newTaskArr = this.state.tasks.filter((task) => {
       return !task.done
     });
 
@@ -80,13 +80,13 @@ class App extends Component {
         <h1>Your To-Do List</h1>
         {/* passing List & IndvTask components */}
         <List
-          clearDoneTasks = {this.clearDone}
-          tasks = {this.state.tasks}
-          addTask = {this.addTask}
-         />
+          clearDoneTasks={this.clearDone}
+          tasks={this.state.tasks}
+          addTask={this.addTask}
+        />
         <IndvTasks
-          tasks = {this.state.tasks}
-          toggleHandler = {this.toggleTask} />
+          tasks={this.state.tasks}
+          toggleHandler={this.toggleTask} />
       </div>
     );
   }

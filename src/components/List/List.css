@@ -35,28 +35,29 @@ h3 {
 }
 
 .addBtn {
-    border: 2px solid palegoldenrod;
+    border: 2px solid #FCEA72;
 }
 
 .addBtn:hover {
-    background-color: palegoldenrod;
+    background-color: #FCEA72;
 }
 
 .clearBtn {
-    border: 2px solid skyblue;
+    border: 2px solid #9AF8EC;
 }
 
 .clearBtn:hover {
-    background-color: skyblue;
+    background-color: #9AF8EC;
 }
 
 
 
 .textBox {
-    width:300px;
+    width:400px;
     height:35px;
     border-style: none;
     margin-bottom: 1rem;
+    border-radius: 25em;
 }
 
 form {
