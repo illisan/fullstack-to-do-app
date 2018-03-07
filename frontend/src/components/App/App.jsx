@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import List from '../List/List';
 import IndvTasks from '../Tasks/IndvTasks'
+import axios from 'axios'
 
 class App extends Component {
 
@@ -16,7 +17,7 @@ class App extends Component {
   componentWillMount () {
   let tasks = JSON.parse(localStorage.getItem('TaskList'))
 
-   if (!tasks) tasks = this.props.tasks
+   if (!tasks) tasks = this.state.tasks
 
    this.setState ({
      tasks,
@@ -27,30 +28,43 @@ class App extends Component {
     localStorage.setItem("TaskList", JSON.stringify(this.state.tasks))
     
   }
+ 
 
   addTask = (event) => {
     event.preventDefault()
+    axios.post("http://localhost:8080/tasks", {
+      title: event.target.todoInput.value, 
+      done: false,
+    })
+    .then((response) => {
+      console.log(response)
+
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+
     console.log(event.target.todoInput.value)
-    let addedTask = event.target.todoInput
+    // let addedTask = event.target.todoInput
     
-    let newTaskArr = [...this.state.tasks]; // using array spread syntax to make copy of tasks array where all added tasks will be added
+    // let newTaskArr = [...this.state.tasks]; // using array spread syntax to make copy of tasks array where all added tasks will be added
 
-    if (addedTask.value.trim() !== "") { // conditional to check whether input field has string; use trim to remove whitespace at beginning and end of input.
-      const newTask = {
-        title: addedTask.value,
-        key: Date.now(),
-        done: false
-      };
+    // if (addedTask.value.trim() !== "") { // conditional to check whether input field has string; use trim to remove whitespace at beginning and end of input.
+    //   const newTask = {
+    //     title: addedTask.value,
+    //     key: Date.now(),
+    //     done: false
+    //   };
 
-      newTaskArr.unshift(newTask); // adding a new task (an object made up of three keys) to the end of the tasks array
+    //   newTaskArr.unshift(newTask); // adding a new task (an object made up of three keys) to the end of the tasks array
 
-      this.setState({
-        tasks: newTaskArr
-      });
+    //   this.setState({
+    //     tasks: newTaskArr
+    //   });
 
-      addedTask.value = ""; // clears the add task input from input field for better user experience.
-      console.log(`added ${newTask.title} to list`);
-    }
+    //   addedTask.value = ""; // clears the add task input from input field for better user experience.
+    //   console.log(`added ${newTask.title} to list`);
+    // }
   }
 
   toggleTask = (taskIndex) => {

@@ -1,19 +1,10 @@
 h3 {
     font-size: 2rem;
     font-weight: 200;
-    line-height: 10px;
+    line-height: 2rem;
     font-family: sans-serif;
-    font-weight: 100;
 }
 
-@media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2) {
-h3 {
-    font-size:1.5rem;
-    line-height: 20px;
-    padding-left: 10px;
-    padding-right:10px;
-}
-}
 
 .spanText {
     font-size: 1rem;
@@ -25,12 +16,13 @@ h3 {
 }
 
 .btn {
-    width:100px;
-    height:40px;
+    width:5rem;
+    height:2.3rem;
     border-style: none;
     border-radius: 25em;
     font-size: 1rem;
-    margin-right: 10px;
+    font-family: sans-serif;
+    margin-right: 1rem;
     background-color: white;
 }
 
@@ -53,15 +45,14 @@ h3 {
 
 
 .textBox {
-    width:400px;
+    width:80%;
     height:35px;
     border-style: none;
     margin-bottom: 1rem;
     border-radius: 25em;
+    font-family: sans-serif;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    margin-left: 30px;
+form, h3{
+    margin-left: 1rem;
 }
