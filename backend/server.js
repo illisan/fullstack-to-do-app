@@ -1,17 +1,20 @@
 const express = require('express')
 const app = express()
-const port = process.argv[2] || 8080 
-const bodyParser =require('body-parser')
+const port = process.argv[2] || 8080
+const bodyParser = require('body-parser')
 
 
-// const knex = require('knex')({
-//     client: 'pg',
-//     connection: {
-//         database: 'fullstack_todo',
-//         user: 'sandra',
-//         password: ''
-//     }
-// })
+
+const knex = require('knex')({
+    client: 'pg',
+    connection: {
+        database: 'fullstack_todo',
+        user: 'sandrailli',
+        password: 'password'
+    }
+})
+
+const bookshelf = require('bookshelf')(knex) //initializing bookshelf function with knex to talk to database.
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -40,15 +43,26 @@ let tasks = [
 // })
 
 app.post('/tasks', (req, res) => {
-  //save tasks
-  console.log(req.body)
-  let newTask ={
-      task: req.body.tasks,
-      done: req.body.done,
-  }
-  res.json(newTask)
+    //save tasks
+    console.log(req.body)
+    let newTask = new Task({
+
+        title: req.body.title,
+        done: req.body.done,
+    })
+    newTask.save()
+        .then((task) => {
+            console.log(task)
+            res.json(task)
+        })
 })
 
+//create update for task, done:true
+//bookshelf documentation: options with get request on front end
+
+const Task = bookshelf.Model.extend({ //Schema and model 
+    tableName: 'tasks'
+})
 
 app.listen(port, () => {
     console.log(`Listening on ${port}`)
