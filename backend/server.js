@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 
 
 
-const knex = require('knex')({
+const knex = require('knex')({ //establish connection between knex and bookshelf.
     client: 'pg',
     connection: {
         database: 'fullstack_todo',
@@ -28,18 +28,18 @@ app.use(function (req, res, next) {
 //CREATE
 app.post('/tasks', (req, res) => {
 
-    let newTask = new Task({
+    let newTask = new Task({ //adding a new task with a title and done key. these are retrieved from parsed body data.
 
         title: req.body.title,
         done: req.body.done,
     })
-    newTask.save()
+    newTask.save() //save added task to databse table.
         .then((task) => {
-            res.json(task.attributes)
+            res.json(task.attributes)//attributes comes from the data, check with console.log(req.body). these are the actual task keys that are needed.
         })
 })
 
-//UPDATE OPERATION
+//UPDATE/RETRIVE OPERATIONS
 
 app.post('/update', (req, res) => {
 

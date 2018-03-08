@@ -9,69 +9,73 @@ class App extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      tasks: [] 
+      tasks: []
     };
   }
 
-  componentWillMount () {
-  let tasks = JSON.parse(localStorage.getItem('TaskList'))
+  componentWillMount() {
+    let tasks = JSON.parse(localStorage.getItem('TaskList'))
 
-   if (!tasks) tasks = this.state.tasks
+    if (!tasks) tasks = this.state.tasks
 
-   this.setState ({
-     tasks,
-   })
-}
-
-  componentDidUpdate () {
-    localStorage.setItem("TaskList", JSON.stringify(this.state.tasks))
-    
+    this.setState({
+      tasks,
+    })
   }
- 
+
+  componentDidUpdate() {
+    localStorage.setItem("TaskList", JSON.stringify(this.state.tasks))
+
+  }
+
 
   addTask = (event) => {
     event.preventDefault()
+
     axios.post("http://localhost:8080/tasks", {
-      title: event.target.todoInput.value, 
+      title: event.target.todoInput.value,
       done: false,
     })
-    .then((response) => {
 
-      this.setState({
-        tasks: this.state.tasks.concat(response.data)
+      .then((response) => {
+
+        this.setState({
+          tasks: this.state.tasks.concat(response.data) //updating state to add retrieved data onto the array of tasks. replacing previous code, where new task was delcared and then pushed onto array.
+        })
+
       })
-    })
-    .catch((error) => {
- 
-    })
+      .catch((error) => {
 
+      })
+    event.target.todoInput.value = ""
   }
 
   toggleTask = (taskIndex) => {
 
-    let newTaskArr = [...this.state.tasks]; 
+    let newTaskArr = [...this.state.tasks];
 
     const task = newTaskArr[taskIndex];
 
-    axios.post("http://localhost:8080/update",{
-      id:task.id,
-      done:!task.done,
+    axios.post("http://localhost:8080/update", {
+      id: task.id,
+      done: !task.done,
     })
-    .then((response)=>{
-     this.setState({tasks:response.data})
-    })
-    .catch ((error)=>{
-      console.log(error)
-    })
+      .then((response) => {
+        this.setState({ tasks: response.data })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
 
   }
 
 
   clearDone = (event) => {
+    event.preventDefault()
     axios.get("http://localhost:8080/clear")
-    .then((response)=>{
-      console.log(response.data)
-    })
+      .then((response) => {
+        console.log(response.data)
+      })
 
     let newTaskArr = this.state.tasks.filter((task) => {
       return !task.done
@@ -80,7 +84,7 @@ class App extends Component {
     this.setState({
       tasks: newTaskArr
     });
-    event.preventDefault()
+
   }
 
 
