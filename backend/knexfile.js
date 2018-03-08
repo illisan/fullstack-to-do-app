@@ -9,7 +9,7 @@ module.exports = {
       user:     'sandrailli',
       password: 'password'
     },
-    pool: {
+    pool: { 
       min: 2,
       max: 10
     },

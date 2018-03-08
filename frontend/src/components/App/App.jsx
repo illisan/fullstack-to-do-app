@@ -73,6 +73,20 @@ class App extends Component {
     let newTaskArr = [...this.state.tasks]; //using spread syntax to create a copy of the original tasks array.
 
     const task = newTaskArr[taskIndex];// declaring new task variable representing the tasks that will be added to the new array.
+
+    axios.post("http://localhost:8080/update",{
+      id:task.id,
+      done:!task.done,
+    })
+    .then((response)=>{
+      console.log(response)
+    })
+    .catch ((error)=>{
+      console.log(error)
+    })
+
+    
+    console.log(task.done)
     const updatedTask = {
       title: task.title,
       key: Date.now(),

@@ -25,16 +25,16 @@ app.use(function (req, res, next) {
     next();
 });
 
-let tasks = [
-    {
-        title: '',
-        done: false,
-    },
-    {
-        title: '',
-        done: false,
-    },
-]
+// let tasks = [
+//     {
+//         title: '',
+//         done: false,
+//     },
+//     {
+//         title: '',
+//         done: false,
+//     },
+// ]
 
 // app.get('/tasks',(req, res)=>{
 //     //return tasks
@@ -57,12 +57,43 @@ app.post('/tasks', (req, res) => {
         })
 })
 
+
+app.post('/update', (req, res) => {
+    console.log(req.body)
+    let updatedTask = {
+        //title:req.body.title,
+        done: !req.body.done,
+    }
+    Task.where({id:req.body.id})
+    .save(updatedTask,{patch:true})
+        .then((task) => {
+            console.log(task)
+            res.json(task)
+        })
+})
+
 //create update for task, done:true
 //bookshelf documentation: options with get request on front end
+
+//CREATE/READ OPERATION
 
 const Task = bookshelf.Model.extend({ //Schema and model 
     tableName: 'tasks'
 })
+
+// new Task({ id: 1 })
+//     .save(attributesToUpdate, { patch: true })
+//     .then(user => {
+//         console.log(user.attributes)
+//     })
+
+//UPDATE OPERATION
+
+//const Task = bookshelf.Model.hasChanged({
+
+
+//DELETE OPERATION
+
 
 app.listen(port, () => {
     console.log(`Listening on ${port}`)
