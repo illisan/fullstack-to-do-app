@@ -25,26 +25,9 @@ app.use(function (req, res, next) {
     next();
 });
 
-// let tasks = [
-//     {
-//         title: '',
-//         done: false,
-//     },
-//     {
-//         title: '',
-//         done: false,
-//     },
-// ]
-
-// app.get('/tasks',(req, res)=>{
-//     //return tasks
-//     console.log('/')
-//     res.send('it lives!')
-// })
-
+//CREATE
 app.post('/tasks', (req, res) => {
-    //save tasks
-    console.log(req.body)
+
     let newTask = new Task({
 
         title: req.body.title,
@@ -52,47 +35,49 @@ app.post('/tasks', (req, res) => {
     })
     newTask.save()
         .then((task) => {
-            console.log(task)
-            res.json(task)
+            res.json(task.attributes)
         })
 })
 
+//UPDATE OPERATION
 
 app.post('/update', (req, res) => {
-    console.log(req.body)
+
     let updatedTask = {
-        //title:req.body.title,
-        done: !req.body.done,
+        done: req.body.done,
     }
-    Task.where({id:req.body.id})
-    .save(updatedTask,{patch:true})
+    Task.where({ id: req.body.id })
+        .save(updatedTask, { patch: true })
         .then((task) => {
-            console.log(task)
-            res.json(task)
+            Task.fetchAll()
+                .then(self => {
+                    res.json(self.models.map(task => task.attributes))
+                })
         })
 })
 
-//create update for task, done:true
-//bookshelf documentation: options with get request on front end
+//DELETE OPERATION
+app.get('/clear', (req, res) => {
+    Task.where({ done: true })
+        .destroy()
+        .then((task) => {
+            Task.fetchAll()
+                .then(self => {
+                    res.json(self.models.map(task => task.attributes))
+                })
+        })
 
-//CREATE/READ OPERATION
+})
+
+
 
 const Task = bookshelf.Model.extend({ //Schema and model 
     tableName: 'tasks'
 })
 
-// new Task({ id: 1 })
-//     .save(attributesToUpdate, { patch: true })
-//     .then(user => {
-//         console.log(user.attributes)
-//     })
-
-//UPDATE OPERATION
-
-//const Task = bookshelf.Model.hasChanged({
 
 
-//DELETE OPERATION
+
 
 
 app.listen(port, () => {
