@@ -30,13 +30,14 @@ class App extends Component {
 
   addTask = (event) => {
     event.preventDefault()
-
+    if (event.target.todoInput.value.trim() !== "") {
     axios.post("http://localhost:8080/tasks", {
       title: event.target.todoInput.value,
       done: false,
     })
+    
+   
       .then((response) => {
-
         this.setState({
           tasks: this.state.tasks.concat(response.data) //updating state to add retrieved data onto the array of tasks. replacing previous code, where new task was delcared and then pushed onto array.
         })
@@ -45,13 +46,13 @@ class App extends Component {
         console.log(error)
       })
     event.target.todoInput.value = ""
+    }
   }
 
 
   toggleTask = (taskIndex) => {
 
     let newTaskArr = [...this.state.tasks];
-
     const task = newTaskArr[taskIndex];
 
     axios.post("http://localhost:8080/update", {
