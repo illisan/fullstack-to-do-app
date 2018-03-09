@@ -69,7 +69,7 @@ app.post('/update', (req, res) => {
 })
 
 
-//DELETE toggled task upon onClic
+//DELETE toggled task upon onClick
 app.get('/clear', (req, res) => {
     Task.where({ done: true })
         .destroy()
@@ -87,8 +87,6 @@ app.get('/clear', (req, res) => {
 const Task = bookshelf.Model.extend({ //Schema and model 
     tableName: 'tasks'
 })
-
-
 
 
 

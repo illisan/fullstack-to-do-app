@@ -10,10 +10,6 @@ class List extends Component {
             return task.done
         })
 
-        console.log('doneCount is working!')
-        console.log(doneCount)
-
-
         return (
             <div className="mainList">
                 <div className="header">
@@ -32,11 +28,7 @@ class List extends Component {
                             }
                         </div>
                     </form>
-
                 </div>
-                {/* <IndvTasks 
-
-                /> */}
             </div>
         );
     }

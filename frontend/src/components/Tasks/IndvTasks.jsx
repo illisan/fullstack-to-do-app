@@ -17,10 +17,7 @@ class IndvTasks extends Component {
     render() {
 
         let tasksArr = this.props.tasks;
-        console.log("tasksArr")
-
         let listItems = tasksArr.map(this.printTasks);
-
         return (
             <div>
                 {listItems}
