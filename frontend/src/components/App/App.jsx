@@ -14,13 +14,12 @@ class App extends Component {
   }
 
   componentWillMount() {
-    let tasks = JSON.parse(localStorage.getItem('TaskList'))
-
-    if (!tasks) tasks = this.state.tasks
-
-    this.setState({
-      tasks,
+    axios.get ("http://localhost:8080/")
+      .then((response) =>{
+            this.setState({
+      tasks: response.data
     })
+      })
   }
 
   componentDidUpdate() {
@@ -36,19 +35,18 @@ class App extends Component {
       title: event.target.todoInput.value,
       done: false,
     })
-
       .then((response) => {
 
         this.setState({
           tasks: this.state.tasks.concat(response.data) //updating state to add retrieved data onto the array of tasks. replacing previous code, where new task was delcared and then pushed onto array.
         })
-
       })
       .catch((error) => {
-
+        console.log(error)
       })
     event.target.todoInput.value = ""
   }
+
 
   toggleTask = (taskIndex) => {
 
@@ -61,29 +59,31 @@ class App extends Component {
       done: !task.done,
     })
       .then((response) => {
-        this.setState({ tasks: response.data })
+        this.setState({
+          tasks: response.data
+        })
       })
       .catch((error) => {
         console.log(error)
       })
-
   }
 
 
   clearDone = (event) => {
     event.preventDefault()
-    axios.get("http://localhost:8080/clear")
-      .then((response) => {
-        console.log(response.data)
-      })
-
     let newTaskArr = this.state.tasks.filter((task) => {
       return !task.done
     });
+    axios.get("http://localhost:8080/clear")
+      .then((response) => {
+        this.setState({
+          tasks: newTaskArr
+        });
+      })
 
-    this.setState({
-      tasks: newTaskArr
-    });
+
+
+
 
   }
 

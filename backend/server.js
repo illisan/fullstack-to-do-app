@@ -25,7 +25,9 @@ app.use(function (req, res, next) {
     next();
 });
 
-//CREATE
+
+
+//CREATE new task
 app.post('/tasks', (req, res) => {
 
     let newTask = new Task({ //adding a new task with a title and done key. these are retrieved from parsed body data.
@@ -39,13 +41,23 @@ app.post('/tasks', (req, res) => {
         })
 })
 
-//UPDATE/RETRIVE OPERATIONS
+// READ fetch all tasks upon re-load/refresh
+app.get('/', (req, res) => {
+    Task.fetchAll()
+        .then(self => {
+            res.json(self.models.map(task => task.attributes))
+        })
+
+})
+
+//UPDATE task upon toggling true/false
 
 app.post('/update', (req, res) => {
 
     let updatedTask = {
         done: req.body.done,
     }
+    console.log(req.body)
     Task.where({ id: req.body.id })
         .save(updatedTask, { patch: true })
         .then((task) => {
@@ -56,7 +68,8 @@ app.post('/update', (req, res) => {
         })
 })
 
-//DELETE OPERATION
+
+//DELETE toggled task upon onClic
 app.get('/clear', (req, res) => {
     Task.where({ done: true })
         .destroy()
@@ -74,7 +87,6 @@ app.get('/clear', (req, res) => {
 const Task = bookshelf.Model.extend({ //Schema and model 
     tableName: 'tasks'
 })
-
 
 
 
